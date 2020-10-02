@@ -14,7 +14,7 @@ public class TestPerson {
 
     @Before
     public void setUp() {
-        person = new Person(2, "John", "Doe", LocalDate.of(1967, 8, 10));
+        person = new Person(2, "John", "Doe", LocalDate.of(2010, 8, 10));
         System.out.println("person created in setUp");
     }
 
@@ -45,7 +45,7 @@ public class TestPerson {
     }
 
     @Test(expected = PersonShouldBeAdultException.class)
-    public void testPersonShouldBeAdultException () {
+    public void testPersonShouldBeAdultException () throws PersonShouldBeAdultException {
         //act
         person.calculateAge();
     }
