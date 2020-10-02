@@ -1,8 +1,9 @@
-package be.abis.exA5.ut;
+package be.abis.exA6.ut;
 
-import be.abis.exa5.model.Person;
+import be.abis.exA6.model.Person;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -12,10 +13,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class TestPerson {
+    Person person;
+
     @Test
-    public void testCalculateAge () {
+    public void testCalculateAge() {
         //arrange
-        Person person = new Person(2,"John","Doe",LocalDate.of(1967, 8, 10));
+
         Integer expected = 53;
 
         //act
@@ -26,9 +29,8 @@ public class TestPerson {
     }
 
     @Test
-    public void toStringSentenceStartsWithPerson () {
+    public void toStringSentenceStartsWithPerson() {
         //arrange
-        Person person = new Person(2,"John","Doe",LocalDate.of(1967, 8, 10));
         String expected = "Person";
 
         //act
@@ -36,7 +38,13 @@ public class TestPerson {
         String result = person.toString();
 
         // assert
-        assertThat(result, startsWith(expected));
+        MatcherAssert.assertThat(result, CoreMatchers.startsWith(expected));
+    }
+
+    @Before
+    public void setUp() {
+        person = new Person(2, "John", "Doe", LocalDate.of(1967, 8, 10));
+        System.out.println("person created in setUp");
     }
 
 }
