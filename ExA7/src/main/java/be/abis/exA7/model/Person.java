@@ -67,7 +67,14 @@ public class Person {
 
 	@Override
 	public String toString() {
-		String text = "Person " + this.personNumber + ": " + this.firstName + " " +this.lastName + " (" +this.calculateAge()+ " years old)";
+		String ageString;
+		try {
+			ageString = this.calculateAge() + " years old";
+		}
+		catch (PersonShouldBeAdultException e) {
+			ageString = "minor";
+		}
+		String text = "Person " + this.personNumber + ": " + this.firstName + " " +this.lastName + " (" + ageString + ")";
 		if (this.company != null) {
 			text+= " works for " + this.company.getName() + " in " + this.company.getAddress().getTown() + ".";
 		} else {

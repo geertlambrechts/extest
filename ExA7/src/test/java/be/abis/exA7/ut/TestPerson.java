@@ -14,15 +14,16 @@ public class TestPerson {
 
     @Before
     public void setUp() {
-        person = new Person(2, "John", "Doe", LocalDate.of(2010, 8, 10));
+        person = new Person(2, "John", "Doe", LocalDate.of(1960, 8, 10));
+
         System.out.println("person created in setUp");
     }
 
     @Test
-    public void testCalculateAge() {
+    public void testCalculateAge() throws PersonShouldBeAdultException {
         //arrange
 
-        Integer expected = 53;
+        Integer expected = 60;
 
         //act
         Integer result = person.calculateAge();
@@ -46,8 +47,11 @@ public class TestPerson {
 
     @Test(expected = PersonShouldBeAdultException.class)
     public void testPersonShouldBeAdultException () throws PersonShouldBeAdultException {
+        //arrange
+        Person person2 = new Person(2, "Peter", "HetKind", LocalDate.of(2010, 8, 10));
+        System.out.println ("person2="+ person2);
         //act
-        person.calculateAge();
+        person2.calculateAge();
     }
 
 }
