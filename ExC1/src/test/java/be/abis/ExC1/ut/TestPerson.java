@@ -1,64 +1,76 @@
 package be.abis.ExC1.ut;
 
+
 import be.abis.exC1.exceptions.PersonShouldBeAdultException;
+import be.abis.exC1.model.Address;
+import be.abis.exC1.model.Company;
 import be.abis.exC1.model.Person;
 import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
+
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 
+import static org.hamcrest.CoreMatchers.startsWith;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class TestPerson {
-    Person person;
 
-    @BeforeEach
-    public void setUp() {
-        person = new Person(2, "John", "Doe", LocalDate.of(1960, 8, 10));
+    Person p;
 
-        System.out.println("person created in setUp");
+    @Mock
+    Company company;
+
+    @Before
+    public void setUp(){
+        p = new Person(2,"John","Doe",LocalDate.of(1967, 8, 10));
     }
 
-
-    @Tag("calculateAgeTests")
     @Test
     public void testCalculateAge() throws PersonShouldBeAdultException {
-        //arrange
-
-        Integer expected = 60;
-
-        //act
-        Integer result = person.calculateAge();
-
-        // assert
-        MatcherAssert.assertThat(result, CoreMatchers.is(CoreMatchers.equalTo(expected)));
+        assertThat(p.calculateAge(), CoreMatchers.is (equalTo(53)));
     }
 
     @Test
-    public void toStringSentenceStartsWithPerson() {
-        //arrange
-        String expected = "Person";
-
-        //act
-
-        String result = person.toString();
-
-        // assert
-        MatcherAssert.assertThat(result, CoreMatchers.startsWith(expected));
+    public void toStringSentenceStartsWithPerson(){
+        String sentence = p.toString();
+        assertThat(sentence, startsWith("Person"));
     }
 
-    @Tag("calculateAgeTests")
-    @DisplayName("Test that CalculateAge throws an exception when person is minor")
+    @Test(expected= PersonShouldBeAdultException.class)
+    public void calculateAgeShouldThrowExceptionWhenPersonNotAdult() throws PersonShouldBeAdultException {
+        Person p2 = new Person(2,"Jane","Smith",LocalDate.of(2007, 8, 10));
+        p2.calculateAge();
+    }
+
+
     @Test
-    public void testPersonShouldBeAdultException ()  {
+    public void calculateNetSalaryOfBelgianPersonUsingMockCompany() {
         //arrange
-        Person person2 = new Person(2, "Peter", "HetKind", LocalDate.of(2010, 8, 10));
-        System.out.println ("person2="+ person2);
+        // Address address = new Address("Wetstraat", "5", "1000", "Brussels", "Belgium", "BE");
+        // Company company = new Company("BNP",address);
+        Person p2 = new Person(2,"John","Doe", LocalDate.of(1967, 8, 10), company, 3000);
+
+        when(company.calculateTaxToPay())
+                .thenReturn(51.0);
         //act
-        Assertions.assertThrows(PersonShouldBeAdultException.class, () -> person2.calculateAge());
+        p2.calculateNetSalary();
+
+        // assert
+        verify(company).calculateTaxToPay();
     }
 }
 

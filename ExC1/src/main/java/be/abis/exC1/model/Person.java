@@ -1,20 +1,19 @@
 package be.abis.exC1.model;
 
 import be.abis.exC1.exceptions.PersonShouldBeAdultException;
-import be.abis.exC1.model.Company;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Person {
-	
+
 	private int personNumber;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDay;
 	private Company company;
 	private double grosSalary;
-	
+
 	public Person(int personNumber, String firstName, String lastName, LocalDate birthDay) {
 		this.personNumber = personNumber;
 		this.firstName = firstName;
@@ -98,8 +97,8 @@ public class Person {
 		}
 		return text;
 	}
-	
-	
+
+
 	public int calculateAge() throws PersonShouldBeAdultException {
 		int age = Period.between(birthDay, LocalDate.now()).getYears();
 		if (age < 18) {
@@ -109,7 +108,7 @@ public class Person {
 	}
 
 	public double calculateNetSalary () {
-		return grosSalary * (1 + (company.calculateTaxToPay() / 100));
+		return grosSalary - ((grosSalary * company.calculateTaxToPay()) / 100);
 	}
 
 

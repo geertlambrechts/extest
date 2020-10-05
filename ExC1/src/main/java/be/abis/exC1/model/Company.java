@@ -26,7 +26,6 @@ public class Company {
 		this.address = address;
 	}
 
-
 	public double calculateTaxToPay() {
 		double taxToPay = 35.0;
 		if (address != null) {
