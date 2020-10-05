@@ -1,7 +1,7 @@
-package be.abis.exB4.model;
+package be.abis.exB5.model;
 
-import be.abis.exB4.exceptions.PersonShouldBeAdultException;
-import be.abis.exB4.model.Company;
+import be.abis.exB5.exceptions.PersonShouldBeAdultException;
+import be.abis.exB5.model.Company;
 
 import java.time.LocalDate;
 import java.time.Period;

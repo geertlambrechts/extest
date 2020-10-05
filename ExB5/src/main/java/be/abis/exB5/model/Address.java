@@ -1,4 +1,4 @@
-package be.abis.exB4.model;
+package be.abis.exB5.model;
 
 public class Address {
 	

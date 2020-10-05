@@ -1,4 +1,4 @@
-package be.abis.exB4.exceptions;
+package be.abis.exB5.exceptions;
 
 public class PersonShouldBeAdultException extends Exception {
         public PersonShouldBeAdultException() {
