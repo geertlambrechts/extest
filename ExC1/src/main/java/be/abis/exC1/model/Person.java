@@ -13,6 +13,7 @@ public class Person {
 	private String lastName;
 	private LocalDate birthDay;
 	private Company company;
+	private double grosSalary;
 	
 	public Person(int personNumber, String firstName, String lastName, LocalDate birthDay) {
 		this.personNumber = personNumber;
@@ -24,6 +25,12 @@ public class Person {
 	public Person(int personNumber, String firstName, String lastName, LocalDate birthDay, Company company) {
 		this(personNumber,firstName,lastName,birthDay);
 		this.company = company;
+	}
+
+	public Person(int personNumber, String firstName, String lastName, LocalDate birthDay, Company company, double grosSalary) {
+		this(personNumber,firstName,lastName,birthDay);
+		this.company = company;
+		this.grosSalary = grosSalary;
 	}
 
 	public int getPersonNumber() {
@@ -66,6 +73,14 @@ public class Person {
 		this.company = company;
 	}
 
+	public double getGrosSalary() {
+		return grosSalary;
+	}
+
+	public void setGrosSalary(double grosSalary) {
+		this.grosSalary = grosSalary;
+	}
+
 	@Override
 	public String toString() {
 		String ageString;
@@ -92,13 +107,10 @@ public class Person {
 		}
 		return age;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public double calculateNetSalary () {
+		return grosSalary * (1 + (company.calculateTaxToPay() / 100));
+	}
+
 
 }

@@ -30,10 +30,10 @@ public class Company {
 	public double calculateTaxToPay() {
 		double taxToPay = 35.0;
 		if (address != null) {
-			if (address.getCountryCode() == "BE") {
+			if (address.getCountryCode().equals("BE")) {
 				taxToPay = 51;
 			}
-			else if (address.getCountryCode() == "NL") {
+			else if (address.getCountryCode().equals("NL")) {
 				taxToPay = 47;
 			}
 		}
