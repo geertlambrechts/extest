@@ -50,7 +50,7 @@ public class TestPerson {
     @Test
     public void testPersonShouldBeAdultException ()  {
         //arrange
-        Person person2 = new Person(2, "Peter", "HetKind", LocalDate.of(1910, 8, 10));
+        Person person2 = new Person(2, "Peter", "HetKind", LocalDate.of(2010, 8, 10));
         System.out.println ("person2="+ person2);
         //act
         Assertions.assertThrows(PersonShouldBeAdultException.class, () -> person2.calculateAge());
